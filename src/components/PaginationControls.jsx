@@ -27,9 +27,10 @@ export default function PaginationControls({ pages, results }) {
       </div>
       <div>
         <span className="text-sm text-gray-400">
-          Showing
-          {`${(currentPage - 1) * productsPerPage + 1}-${currentPage * productsPerPage}`}
-          of {results.length} results
+          Showing{" "}
+          {`${(currentPage - 1) * productsPerPage + 1}-${Math.min(currentPage * productsPerPage, results.length)} of
+          ${results.length} `}
+          results
         </span>
       </div>
     </div>

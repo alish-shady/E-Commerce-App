@@ -1,20 +1,28 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import HomePage from "./pages/HomePage";
-import ProductDetail from "./pages/ProductDetail";
-import Cart from "./pages/Cart";
+import ProductDetails from "./pages/ProductDetailsPage";
+import Cart from "./pages/CartPage";
 import { ProductsProvider } from "./contexts/ProductsContext";
-import LoadingDots from "./components/LoadingDots";
+import { CartProvider } from "./contexts/CartContext";
+import { ProductProvider } from "./contexts/ProductContext";
+import NotFound from "./pages/NotFoundPage";
+import SignUp from "./pages/SignUpPage";
 function App() {
   return (
     <ProductsProvider>
-      <BrowserRouter>
-        <Routes>
-          <Route index path="/" element={<HomePage />} />
-          <Route path="/productdetail/:id" element={<ProductDetail />} />
-          <Route path="/cart" element={<Cart />} />
-          <Route path="/loading" element={<LoadingDots />} />
-        </Routes>
-      </BrowserRouter>
+      <ProductProvider>
+        <CartProvider>
+          <BrowserRouter>
+            <Routes>
+              <Route index path="/" element={<HomePage />} />
+              <Route path="/productdetail/:id" element={<ProductDetails />} />
+              <Route path="/cart" element={<Cart />} />
+              <Route path="/signup" element={<SignUp />} />
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </BrowserRouter>
+        </CartProvider>
+      </ProductProvider>
     </ProductsProvider>
   );
 }

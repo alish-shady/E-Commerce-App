@@ -2,15 +2,14 @@ import { useProductsContext } from "../contexts/ProductsContext";
 import LoadingDots from "./LoadingDots";
 import ProductCard from "./ProductCard";
 import PaginationControls from "./PaginationControls";
+import { useSearchParams } from "react-router-dom";
+import NotAvailable from "./NotAvailable";
+import { useEffect } from "react";
 export default function ProductList({ children }) {
-  const {
-    products,
-    filteredCategory,
-    sortBy,
-    isLoading,
-    currentPage,
-    productsPerPage,
-  } = useProductsContext();
+  const { products, isLoading, currentPage, productsPerPage, goToPage } =
+    useProductsContext();
+  const [searchParams, _] = useSearchParams();
+  const sortBy = searchParams.get("sortBy");
   const sortedProducts = JSON.parse(JSON.stringify(products));
   sortedProducts.sort((a, b) => {
     switch (sortBy) {
@@ -22,10 +21,24 @@ export default function ProductList({ children }) {
         return 0;
     }
   });
-  const productsOnCurrentPage = sortedProducts.slice(
+  const filteredCategory = searchParams.get("filter");
+  let filteredProducts = sortedProducts.filter((product) => {
+    return filteredCategory ? product.category === filteredCategory : true;
+  });
+  if (searchParams.get("query") !== null) {
+    filteredProducts = filteredProducts.filter((product) =>
+      product.title.toLowerCase().includes(searchParams.get("query")),
+    );
+  }
+  const productsOnCurrentPage = filteredProducts.slice(
     productsPerPage * (currentPage - 1),
     productsPerPage * currentPage,
   );
+  useEffect(() => {
+    if (!productsOnCurrentPage.length && filteredProducts.length) {
+      goToPage(1);
+    }
+  }, [productsOnCurrentPage.length, goToPage, filteredProducts.length]);
   return (
     <div className="flex justify-between gap-4">
       {children}
@@ -33,22 +46,21 @@ export default function ProductList({ children }) {
         <LoadingDots />
       ) : (
         <div className="flex w-full flex-col gap-8">
-          <div className="grid w-full grid-cols-[repeat(auto-fit,288px)] place-content-between gap-y-4">
-            {products.length &&
-              productsOnCurrentPage.map(function (product) {
-                return filteredCategory ? (
-                  product.category === filteredCategory && (
-                    <ProductCard product={product} key={product.id} />
-                  )
-                ) : (
-                  <ProductCard product={product} key={product.id} />
-                );
-              })}
-          </div>
-          <PaginationControls
-            pages={Math.ceil(products.length / productsPerPage)}
-            results={sortedProducts}
-          />
+          {filteredProducts.length ? (
+            <>
+              <div className="grid w-full grid-cols-[repeat(auto-fit,288px)] place-content-end gap-x-10 gap-y-4">
+                {productsOnCurrentPage.map(function (product) {
+                  return <ProductCard product={product} key={product.id} />;
+                })}
+              </div>
+              <PaginationControls
+                pages={Math.ceil(filteredProducts.length / productsPerPage)}
+                results={filteredProducts}
+              />
+            </>
+          ) : (
+            <NotAvailable />
+          )}
         </div>
       )}
     </div>

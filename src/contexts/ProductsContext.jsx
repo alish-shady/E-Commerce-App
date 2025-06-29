@@ -1,14 +1,10 @@
 import { createContext, useContext, useEffect, useReducer } from "react";
 function reducer(state, action) {
   switch (action.type) {
-    case "productsLoading":
+    case "loading":
       return { ...state, isLoading: true };
     case "productsLoaded":
       return { ...state, isLoading: false, products: action.payload };
-    case "productsFilterSet":
-      return { ...state, filteredCategory: action.payload };
-    case "productSortingSet":
-      return { ...state, sortBy: action.payload };
     case "pageMoved":
       return { ...state, currentPage: state.currentPage + action.payload };
     case "pageChanged":
@@ -18,33 +14,22 @@ function reducer(state, action) {
 
 const initialState = {
   products: [],
-  filteredCategory: "",
-  sortBy: "",
-  isLoading: false,
+  isLoading: true,
   currentPage: 1,
   productsPerPage: 10,
 };
 const ProductsContext = createContext();
 function ProductsProvider({ children }) {
-  const [
-    {
-      products,
-      filteredCategory,
-      sortBy,
-      isLoading,
-      productsPerPage,
-      currentPage,
-    },
-    dispatch,
-  ] = useReducer(reducer, initialState);
+  const [{ products, isLoading, productsPerPage, currentPage }, dispatch] =
+    useReducer(reducer, initialState);
   useEffect(function () {
     async function fetchProducts() {
       try {
-        dispatch({ type: "productsLoading" });
+        dispatch({ type: "loading" });
         const res = await Promise.race([
           fetch("https://fakestoreapi.com/products"),
           new Promise((resolve, reject) =>
-            setTimeout(() => reject("Time ran out"), 5000),
+            setTimeout(() => reject("Time ran out"), 10000),
           ),
         ]);
         const data = await res.json();
@@ -55,14 +40,6 @@ function ProductsProvider({ children }) {
     }
     fetchProducts();
   }, []);
-  function alterFilter(cat) {
-    if (!cat) dispatch({ type: "productsFilterSet", payload: "" });
-    dispatch({ type: "productsFilterSet", payload: cat });
-  }
-  function alterSorting(sortBy) {
-    if (!sortBy) dispatch({ type: "productSortingSet", payload: "" });
-    else dispatch({ type: "productSortingSet", payload: sortBy });
-  }
   function movePage(dir) {
     switch (dir) {
       case "right":
@@ -85,12 +62,8 @@ function ProductsProvider({ children }) {
       value={{
         products,
         isLoading,
-        filteredCategory,
-        sortBy,
         productsPerPage,
         currentPage,
-        alterFilter,
-        alterSorting,
         movePage,
         goToPage,
       }}
@@ -103,7 +76,7 @@ function useProductsContext() {
   const contextValue = useContext(ProductsContext);
   if (contextValue === undefined)
     throw new Error(
-      "CitiesContext is not used in the right place (inside the provider)",
+      "ProductsContext is not used in the right place (inside the provider)",
     );
   return contextValue;
 }

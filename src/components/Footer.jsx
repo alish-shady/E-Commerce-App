@@ -3,7 +3,7 @@ import { FaGithub } from "react-icons/fa";
 import { Link } from "react-router-dom";
 export default function Footer() {
   return (
-    <footer className="flex w-full flex-col bg-black text-white">
+    <footer className="flex w-full flex-col justify-self-end bg-black text-white">
       <div className="flex w-full items-start justify-center gap-28 px-16 py-8">
         <div className="max-w-32">
           <img src="/logo.png" alt="Logo" className="size-full" />

@@ -1,8 +1,10 @@
 import { Link, NavLink } from "react-router-dom";
 import SearchBar from "./SearchBar";
 import { FaShoppingCart } from "react-icons/fa";
+import { useCartContext } from "../contexts/CartContext";
 
 export default function Header() {
+  const { cart } = useCartContext();
   return (
     <header className="flex w-full justify-between border-b-[1px] border-b-gray-200 py-8">
       <h1 className="text-2xl font-bold">
@@ -24,7 +26,14 @@ export default function Header() {
       </ul>
       <div className="flex items-center gap-4">
         <SearchBar />
-        <FaShoppingCart />
+        <Link to="/cart">
+          <div className="relative w-full">
+            <FaShoppingCart className="text-xl" />
+            <span className="absolute -top-2 -right-2 flex h-4 w-4 items-center justify-center rounded-full bg-red-400 text-xs text-white">
+              {cart.length}
+            </span>
+          </div>
+        </Link>
       </div>
     </header>
   );
