@@ -1,39 +1,105 @@
-import { createContext, useContext, useReducer } from "react";
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useMemo,
+  useReducer,
+} from "react";
 function reducer(state, action) {
   if (action.type === "loading") {
     return { ...state, isLoading: true };
   } else if (action.type === "productLoaded") {
-    return { ...state, isLoading: false, currentProduct: action.payload };
-  } else {
-    return { ...state, isLoading: false };
+    return {
+      ...state,
+      isLoading: false,
+      currentProduct: action.payload,
+      error: "",
+    };
+  } else if (action.type === "ratingChanged") {
+    return {
+      ...state,
+      ratedProducts: [...state.ratedProducts, action.payload],
+    };
+  } else if (action.type === "rejected") {
+    return {
+      ...state,
+      isLoading: false,
+      error: action.payload,
+      currentProduct: {},
+    };
+  } else if (action.type === "unmounted") {
+    return {
+      isLoading: false,
+      currentProduct: {},
+      error: "",
+      ratedProducts: state.ratedProducts.length ? state.ratedProducts : [],
+    };
   }
 }
-const initialState = { isLoading: false, currentProduct: {} };
+const initialState = {
+  isLoading: false,
+  currentProduct: {},
+  ratedProducts: [],
+  error: "",
+};
 const ProductContext = createContext();
 function ProductProvider({ children }) {
-  const [{ currentProduct, isLoading }, dispatch] = useReducer(
-    reducer,
-    initialState,
-  );
+  const [{ currentProduct, isLoading, error, ratedProducts }, dispatch] =
+    useReducer(reducer, initialState);
   async function fetchProductDetails(id) {
     try {
       dispatch({ type: "loading" });
+      let timeoutId;
       const res = await Promise.race([
         fetch(`https://fakestoreapi.com/products/${id}`),
-        new Promise((resolve, reject) =>
-          setTimeout(() => reject("Time ran out"), 10000),
+        new Promise(
+          (resolve) =>
+            (timeoutId = setTimeout(() => {
+              resolve("Time ran out");
+            }, 5000)),
         ),
       ]);
+      if (!res.ok) {
+        throw new Error();
+      }
+      clearTimeout(timeoutId);
       const data = await res.json();
       dispatch({ type: "productLoaded", payload: data });
-    } catch (err) {
-      throw new Error(err);
+    } catch {
+      dispatch({
+        type: "rejected",
+        payload:
+          "There was an error with fetching the details of this product.",
+      });
     }
   }
+
+  const unmount = useCallback(function unmount() {
+    dispatch({ type: "unmounted" });
+  }, []);
+
+  const contextValue = useMemo(() => {
+    function rateProduct(productId, rating) {
+      const exists = ratedProducts.findIndex((item) => item.id === productId);
+      exists !== -1 && ratedProducts.splice(exists, 1);
+      dispatch({
+        type: "ratingChanged",
+        payload: { id: productId, rating: rating },
+      });
+    }
+    return {
+      currentProduct,
+      isLoading,
+      error,
+      ratedProducts,
+      fetchProductDetails,
+      rateProduct,
+      unmount,
+    };
+  }, [currentProduct, error, isLoading, ratedProducts, unmount]);
+
   return (
-    <ProductContext.Provider
-      value={{ currentProduct, isLoading, fetchProductDetails }}
-    >
+    <ProductContext.Provider value={contextValue}>
       {children}
     </ProductContext.Provider>
   );

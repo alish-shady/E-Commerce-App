@@ -4,11 +4,18 @@ function reducer(state, action) {
     case "loading":
       return { ...state, isLoading: true };
     case "productsLoaded":
-      return { ...state, isLoading: false, products: action.payload };
+      return {
+        ...state,
+        isLoading: false,
+        products: action.payload,
+        error: "",
+      };
     case "pageMoved":
       return { ...state, currentPage: state.currentPage + action.payload };
     case "pageChanged":
       return { ...state, currentPage: action.payload };
+    case "rejected":
+      return { ...state, isLoading: false, error: action.payload };
   }
 }
 
@@ -17,11 +24,14 @@ const initialState = {
   isLoading: true,
   currentPage: 1,
   productsPerPage: 10,
+  error: "",
 };
 const ProductsContext = createContext();
 function ProductsProvider({ children }) {
-  const [{ products, isLoading, productsPerPage, currentPage }, dispatch] =
-    useReducer(reducer, initialState);
+  const [
+    { products, isLoading, productsPerPage, currentPage, error },
+    dispatch,
+  ] = useReducer(reducer, initialState);
   useEffect(function () {
     async function fetchProducts() {
       try {
@@ -29,13 +39,17 @@ function ProductsProvider({ children }) {
         const res = await Promise.race([
           fetch("https://fakestoreapi.com/products"),
           new Promise((resolve, reject) =>
-            setTimeout(() => reject("Time ran out"), 10000),
+            setTimeout(() => reject("Time ran out"), 5000),
           ),
         ]);
         const data = await res.json();
         dispatch({ type: "productsLoaded", payload: data });
-      } catch (err) {
-        throw new Error(err);
+      } catch {
+        dispatch({
+          type: "rejected",
+          payload:
+            "The server took too long to respond, or you have network related issues",
+        });
       }
     }
     fetchProducts();
@@ -64,6 +78,7 @@ function ProductsProvider({ children }) {
         isLoading,
         productsPerPage,
         currentPage,
+        error,
         movePage,
         goToPage,
       }}

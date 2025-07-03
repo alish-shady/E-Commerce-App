@@ -2,11 +2,13 @@ import { Link, NavLink } from "react-router-dom";
 import SearchBar from "./SearchBar";
 import { FaShoppingCart } from "react-icons/fa";
 import { useCartContext } from "../contexts/CartContext";
-
+import CartModal from "./CartModal";
+import { useState } from "react";
 export default function Header() {
   const { cart } = useCartContext();
+  const [showCartModal, setShowCartModal] = useState(false);
   return (
-    <header className="flex w-full justify-between border-b-[1px] border-b-gray-200 py-8">
+    <header className="border-b-Button text-Text1 relative z-10 flex w-full justify-between border-b-[0.1px] py-8">
       <h1 className="text-2xl font-bold">
         <Link to="/"> E-Commerce</Link>
       </h1>
@@ -27,14 +29,41 @@ export default function Header() {
       <div className="flex items-center gap-4">
         <SearchBar />
         <Link to="/cart">
-          <div className="relative w-full">
+          <div
+            className="relative w-full"
+            onMouseEnter={() => {
+              if (cart.length) {
+                setTimeout(() => {
+                  setShowCartModal(true);
+                }, 500);
+              }
+            }}
+            onMouseLeave={() => {
+              setShowCartModal(false);
+            }}
+          >
             <FaShoppingCart className="text-xl" />
-            <span className="absolute -top-2 -right-2 flex h-4 w-4 items-center justify-center rounded-full bg-red-400 text-xs text-white">
+            <span className="bg-Secondary2 text-Primary absolute -top-2 -right-2 flex h-4 w-4 items-center justify-center rounded-full text-xs">
               {cart.length}
             </span>
           </div>
         </Link>
       </div>
+      {showCartModal && (
+        <div
+          onMouseEnter={() => {
+            setShowCartModal(true);
+          }}
+          onMouseLeave={() => {
+            setShowCartModal(false);
+          }}
+          className="absolute top-1/2 right-0 flex max-h-[60vh] max-w-2/5 flex-col gap-4 overflow-y-scroll rounded-xl bg-white p-4 drop-shadow-xl"
+        >
+          {cart.map((product) => {
+            return <CartModal product={product} key={product.id} />;
+          })}
+        </div>
+      )}
     </header>
   );
 }

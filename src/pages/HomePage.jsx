@@ -6,7 +6,7 @@ import SortandFilter from "../components/Sort&Filter";
 export default function HomePage() {
   return (
     <>
-      <main className="mb-8 flex flex-col gap-4 px-16">
+      <main className="bg-Primary text-Text1 flex flex-col gap-4 px-16 pb-8">
         <Header />
         <ProductList>
           <SortandFilter />

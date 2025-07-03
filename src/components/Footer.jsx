@@ -3,7 +3,7 @@ import { FaGithub } from "react-icons/fa";
 import { Link } from "react-router-dom";
 export default function Footer() {
   return (
-    <footer className="flex w-full flex-col justify-self-end bg-black text-white">
+    <footer className="bg-Button text-Text flex w-full flex-col justify-self-end">
       <div className="flex w-full items-start justify-center gap-28 px-16 py-8">
         <div className="max-w-32">
           <img src="/logo.png" alt="Logo" className="size-full" />
@@ -79,8 +79,8 @@ export default function Footer() {
           </ul>
         </div>
       </div>
-      <div className="flex w-full justify-center border-t border-t-gray-800 p-4">
-        <p className="text-sm text-gray-700">
+      <div className="border-t-Primary/40 flex w-full justify-center border-t p-4">
+        <p className="text-Primary text-sm opacity-60">
           © 2025 Ali Shapoori. All Rights Reserved.
         </p>
       </div>

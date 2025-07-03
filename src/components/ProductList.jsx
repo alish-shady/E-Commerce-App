@@ -4,12 +4,14 @@ import ProductCard from "./ProductCard";
 import PaginationControls from "./PaginationControls";
 import { useSearchParams } from "react-router-dom";
 import NotAvailable from "./NotAvailable";
+import Error from "./Error";
 import { useEffect } from "react";
 export default function ProductList({ children }) {
-  const { products, isLoading, currentPage, productsPerPage, goToPage } =
+  const { products, isLoading, currentPage, productsPerPage, goToPage, error } =
     useProductsContext();
   const [searchParams, _] = useSearchParams();
   const sortBy = searchParams.get("sortBy");
+  const filteredCategory = searchParams.get("filter");
   const sortedProducts = JSON.parse(JSON.stringify(products));
   sortedProducts.sort((a, b) => {
     switch (sortBy) {
@@ -21,7 +23,6 @@ export default function ProductList({ children }) {
         return 0;
     }
   });
-  const filteredCategory = searchParams.get("filter");
   let filteredProducts = sortedProducts.filter((product) => {
     return filteredCategory ? product.category === filteredCategory : true;
   });
@@ -39,6 +40,9 @@ export default function ProductList({ children }) {
       goToPage(1);
     }
   }, [productsOnCurrentPage.length, goToPage, filteredProducts.length]);
+  if (error && !products.length) {
+    return <Error message={error} />;
+  }
   return (
     <div className="flex justify-between gap-4">
       {children}

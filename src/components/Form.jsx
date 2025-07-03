@@ -9,27 +9,27 @@ export default function Form() {
         <input
           type="text"
           placeholder="Name"
-          className="border-b border-gray-400 p-2 text-sm focus:outline-0"
+          className="border-Text2 border-b p-2 text-sm focus:outline-0"
         />
         <input
           type="text"
           placeholder="Email or Phone Number"
-          className="border-b border-gray-400 p-2 text-sm focus:outline-0"
+          className="border-Text2 border-b p-2 text-sm focus:outline-0"
         />
         <input
           type="password"
           placeholder="Password"
-          className="border-b border-gray-400 p-2 text-sm focus:outline-0"
+          className="border-Text2 border-b p-2 text-sm focus:outline-0"
         />
       </div>
       <div className="flex w-full">
-        <button className="border-red-400hover:bg-white grow cursor-pointer rounded-sm border bg-red-400 py-2 text-sm text-white duration-200 hover:bg-white hover:text-red-400">
+        <button className="hover:text-Button2 bg-Button2 text-Text hover:bg-Text grow cursor-pointer rounded-sm border py-2 text-sm duration-200">
           Create Account
         </button>
       </div>
       <div className="flex gap-2 text-sm">
-        <p className="text-gray-400">Already have an account?</p>
-        <span className="border-b border-b-gray-400">Log in</span>
+        <p className="text-Text2">Already have an account?</p>
+        <span className="border-b-Text2 border-b">Log in</span>
       </div>
     </form>
   );

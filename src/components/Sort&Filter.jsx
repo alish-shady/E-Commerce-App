@@ -25,7 +25,7 @@ export default function SortandFilter() {
   const sortBy = searchParams.get("sortBy");
   return (
     <aside className="flex flex-col gap-4">
-      <div className="flex flex-col gap-2 border-b border-b-gray-200 pb-2">
+      <div className="border-b-Button flex flex-col gap-2 border-b pb-2">
         <h2 className="text-2xl text-nowrap">Filtering by Category</h2>
         <div className="ml-2 flex flex-col gap-2">
           {isLoading ? (

@@ -11,7 +11,7 @@ export default function CartTotal() {
           <span>Subtotal:</span>
           <span>${subTotal}</span>
         </div>
-        <div className="flex justify-between border-y border-y-gray-400 py-2">
+        <div className="border-y-Text2 flex justify-between border-y py-2">
           <span>Shipping:</span>
           <span>${shippingCost}</span>
         </div>
@@ -20,7 +20,7 @@ export default function CartTotal() {
           <span>${subTotal + shippingCost}</span>
         </div>
       </div>
-      <button className="m-auto w-3/4 cursor-pointer rounded-md border-2 border-gray-400 p-2 text-sm transition-all duration-200 hover:bg-gray-400 hover:text-white">
+      <button className="border-Text2 hover:text-Text hover:bg-Text2 m-auto w-3/4 cursor-pointer rounded-md border-2 p-2 text-sm transition-all duration-200">
         Proceed to checkout
       </button>
     </div>

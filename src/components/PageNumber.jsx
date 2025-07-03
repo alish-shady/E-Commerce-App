@@ -5,7 +5,7 @@ export default function PageNumber({ i }) {
   return (
     <button
       onClick={() => goToPage(i + 1)}
-      className="flex h-10 w-10 cursor-pointer items-center justify-center rounded-xl bg-gray-200 text-gray-700 duration-200 hover:bg-gray-300"
+      className="hover:bg-Secondary bg-Primary border-Secondary flex h-10 w-10 cursor-pointer items-center justify-center rounded-xl border duration-200"
     >
       {i + 1}
     </button>

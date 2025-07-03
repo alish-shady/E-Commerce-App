@@ -8,7 +8,7 @@ export default function PaginationControls({ pages, results }) {
     <div className="flex w-full flex-col items-center justify-center gap-2">
       <div className="flex w-full items-center justify-center gap-4">
         <button
-          className={`flex h-10 w-10 cursor-pointer items-center justify-center rounded-xl bg-gray-200 text-gray-700 duration-200 ${currentPage <= 1 ? "opacity-40" : "opacity-100 hover:bg-gray-300"}`}
+          className={`bg-Secondary flex h-10 w-10 cursor-pointer items-center justify-center rounded-xl duration-200 ${currentPage <= 1 ? "opacity-40" : "opacity-100"}`}
           onClick={() => movePage("left")}
           disabled={currentPage <= 1}
         >
@@ -18,7 +18,7 @@ export default function PaginationControls({ pages, results }) {
           return <PageNumber i={i} key={i} />;
         })}
         <button
-          className={`flex h-10 w-10 cursor-pointer items-center justify-center rounded-xl bg-gray-200 text-gray-700 duration-200 ${currentPage >= pages ? "opacity-40" : "opacity-100 hover:bg-gray-300"}`}
+          className={`bg-Secondary flex h-10 w-10 cursor-pointer items-center justify-center rounded-xl duration-200 ${currentPage >= pages ? "opacity-40" : "opacity-100"}`}
           onClick={() => movePage("right")}
           disabled={currentPage >= pages}
         >
@@ -26,7 +26,7 @@ export default function PaginationControls({ pages, results }) {
         </button>
       </div>
       <div>
-        <span className="text-sm text-gray-400">
+        <span className="text-Text2 text-sm">
           Showing{" "}
           {`${(currentPage - 1) * productsPerPage + 1}-${Math.min(currentPage * productsPerPage, results.length)} of
           ${results.length} `}

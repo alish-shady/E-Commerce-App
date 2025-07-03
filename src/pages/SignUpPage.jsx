@@ -8,7 +8,7 @@ export default function SignUp() {
       <main className="mb-8 flex flex-col gap-4 px-16">
         <Header />
         <div className="flex">
-          <FaShoppingCart className="my-auto text-[512px] text-red-400" />
+          <FaShoppingCart className="text-Secondary2 my-auto text-[512px]" />
           <Form />
         </div>
       </main>

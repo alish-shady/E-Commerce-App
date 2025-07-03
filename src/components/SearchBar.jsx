@@ -8,7 +8,7 @@ export default function SearchBar() {
       <FaMagnifyingGlass className="absolute right-4" />
       <input
         type="text"
-        className="rounded-sm bg-gray-100 p-1 focus:outline-0"
+        className="bg-Secondary text-Text1 rounded-sm p-1 focus:outline-0"
         value={searchParams.get("query") ?? ""}
         onChange={(e) =>
           setSearchParams((prev) => {

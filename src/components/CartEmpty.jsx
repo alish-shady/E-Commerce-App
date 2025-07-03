@@ -7,7 +7,7 @@ export default function CartEmpty() {
         <h1 className="text-8xl font-bold">Cart is Empty!</h1>
         <p className="text-sm">You have not picked any product to buy!</p>
       </div>
-      <ReturnButton color="red" />
+      <ReturnButton />
     </div>
   );
 }

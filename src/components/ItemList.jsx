@@ -4,17 +4,24 @@ import { MdOutlineKeyboardArrowRight } from "react-icons/md";
 import { MdCategory } from "react-icons/md";
 import { useEffect, useRef, useState } from "react";
 import { useProductsContext } from "../contexts/ProductsContext";
-export default function ItemList({ category, listName, currentProductId }) {
+import { useProductContext } from "../contexts/ProductContext";
+import LoadingDots from "./LoadingDots";
+export default function ItemList({ listName }) {
+  const { currentProduct, isLoading } = useProductContext();
+  const { products } = useProductsContext();
   const listContainer = useRef(null);
-  const relatedProducts = useProductsContext().products.filter((product) => {
-    return product.category === category && currentProductId !== product.id;
+  const relatedProducts = products.filter((product) => {
+    return (
+      product.category === currentProduct.category &&
+      currentProduct.id !== product.id
+    );
   });
   const [isOverflowing, setIsOverflowing] = useState(false);
   useEffect(() => {
-    checkOverFlow();
+    if (relatedProducts.length) checkOverFlow();
     window.addEventListener("resize", checkOverFlow);
     return () => window.removeEventListener("resize", checkOverFlow);
-  }, []);
+  }, [relatedProducts]);
   function checkOverFlow() {
     const container = listContainer.current;
     if (container) {
@@ -24,6 +31,7 @@ export default function ItemList({ category, listName, currentProductId }) {
 
   function scrollList(e, dir) {
     e.preventDefault();
+    console.log(getComputedStyle(listContainer.current).padding);
     const scrollAmount = getComputedStyle(
       listContainer.current.children[0],
     ).width;
@@ -41,6 +49,7 @@ export default function ItemList({ category, listName, currentProductId }) {
       });
     }
   }
+
   return (
     <section>
       <div className="relative flex w-full items-center justify-between">
@@ -52,27 +61,33 @@ export default function ItemList({ category, listName, currentProductId }) {
           <div className="absolute left-1/2 flex -translate-x-1/2 transform gap-8">
             <button
               onClick={(e) => scrollList(e, "left")}
-              className="flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border border-gray-400 transition-colors duration-200 hover:bg-gray-400"
+              className="border-Secondary hover:bg-Secondary flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border transition-colors duration-200"
             >
               <MdOutlineKeyboardArrowLeft className="text-lg" />
             </button>
             <button
               onClick={(e) => scrollList(e, "right")}
-              className="flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border border-gray-400 transition-colors duration-200 hover:bg-gray-400"
+              className="border-Secondary hover:bg-Secondary flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border transition-colors duration-200"
             >
               <MdOutlineKeyboardArrowRight className="text-lg" />
             </button>
           </div>
         )}
       </div>
-      <div
-        className="scrollbar-hide flex w-full snap-x gap-8 overflow-x-auto scroll-smooth p-4"
-        ref={listContainer}
-      >
-        {relatedProducts.map((product) => (
-          <ItemCard key={product.id} product={product} />
-        ))}
-      </div>
+      {isLoading ? (
+        <div className="flex h-full w-full items-center justify-center">
+          <LoadingDots />
+        </div>
+      ) : (
+        <div
+          className="scrollbar-hide flex w-full snap-x gap-8 overflow-x-auto scroll-smooth p-4"
+          ref={listContainer}
+        >
+          {relatedProducts.map((product) => (
+            <ItemCard key={product.id} product={product} />
+          ))}
+        </div>
+      )}
     </section>
   );
 }

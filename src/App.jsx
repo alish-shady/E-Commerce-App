@@ -7,12 +7,14 @@ import { CartProvider } from "./contexts/CartContext";
 import { ProductProvider } from "./contexts/ProductContext";
 import NotFound from "./pages/NotFoundPage";
 import SignUp from "./pages/SignUpPage";
+import ScrollToTop from "./components/ScrollToTop";
 function App() {
   return (
     <ProductsProvider>
       <ProductProvider>
         <CartProvider>
           <BrowserRouter>
+            <ScrollToTop />
             <Routes>
               <Route index path="/" element={<HomePage />} />
               <Route path="/productdetail/:id" element={<ProductDetails />} />

@@ -1,13 +1,17 @@
 import { Link } from "react-router-dom";
+import StarRating from "./StarRating";
 
 export default function ProductCard({ product }) {
-  const { title, price, category, image, id } = product;
+  const { title, price, category, image, id, rating } = product;
   return (
     <Link to={`/productdetail/${id}`}>
       <div
         title={title}
-        className="flex aspect-square h-full w-full cursor-pointer flex-col gap-2 rounded-2xl border border-gray-200 bg-white p-4 text-sm shadow-md transition-shadow duration-300 hover:shadow-lg"
+        className="border-Secondary shadow-Secondary relative flex aspect-square h-full w-full cursor-pointer flex-col gap-2 rounded-2xl border p-4 text-sm shadow-md transition-shadow duration-300 hover:shadow-lg"
       >
+        <div className="text-Text2 absolute top-2 left-2 text-xs tracking-wide uppercase">
+          {category}
+        </div>
         <div className="flex w-full items-center justify-center py-4">
           <img
             src={image}
@@ -15,15 +19,11 @@ export default function ProductCard({ product }) {
             alt="product image"
           />
         </div>
-        <h2 className="truncate text-xs font-semibold text-gray-800">
-          {title}
-        </h2>
-        <p className="text-gray-600">
-          Price: <span className="font-medium text-gray-900">${price}</span>
+        <h2 className="truncate text-xs font-semibold">{title}</h2>
+        <p className="text-Text2">
+          Price: <span className="text-Secondary2 font-medium">${price}</span>
         </p>
-        <div className="text-xs tracking-wide text-gray-500 uppercase">
-          {category}
-        </div>
+        <StarRating productId={id} rating={rating} interactive={false} />
       </div>
     </Link>
   );

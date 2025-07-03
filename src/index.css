@@ -3,6 +3,16 @@
 
 @theme {
   --animate-bounce: bounce 0.8s infinite;
+  --color-Primary: #ffffff;
+  --color-Secondary: #f5f5f5;
+  --color-Secondary2: #db4444;
+  --color-Button: #000000;
+  --color-Button1: #00ff66;
+  --color-Button2: #db4444;
+  --color-HoverButton2: #e07575;
+  --color-Text: #fafafa;
+  --color-Text1: #000000;
+  --color-Text2: #7d8184;
   @keyframes bounce {
     0%,
     100% {
@@ -16,5 +26,5 @@
   }
 }
 .active {
-  border-bottom: 2px solid var(--color-gray-300);
+  border-bottom: 2px solid var(--color-Text2);
 }
