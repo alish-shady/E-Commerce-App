@@ -1,17 +1,20 @@
 import { useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import LoadingDots from "./LoadingDots";
 import Error from "./Error";
 import { useProductContext } from "../contexts/ProductContext";
 import { useCartContext } from "../contexts/CartContext";
 import { IoIosHeartEmpty } from "react-icons/io";
 import StarRating from "./StarRating";
+import { useUserContext } from "../contexts/UserContext";
 export default function ProductInfo() {
   const { id } = useParams();
   const { currentProduct, fetchProductDetails, isLoading, error, unmount } =
     useProductContext();
   const { addToCart, productExists } = useCartContext();
+  const { userId } = useUserContext();
   const exists = productExists(currentProduct.id);
+  const navigate = useNavigate();
   useEffect(
     function () {
       if (id) fetchProductDetails(id);
@@ -64,7 +67,9 @@ export default function ProductInfo() {
             </div>
             <div className="flex justify-between">
               <button
-                onClick={() => addToCart(currentProduct)}
+                onClick={() =>
+                  userId ? addToCart(currentProduct) : navigate("/signup")
+                }
                 className={`text-Text basis-3/4 cursor-pointer rounded-md p-2 transition-all duration-200 ${exists ? "bg-Button1" : "bg-Button2 hover:bg-HoverButton2"}`}
                 disabled={exists}
               >

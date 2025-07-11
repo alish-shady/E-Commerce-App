@@ -2,9 +2,12 @@ import {
   createContext,
   useCallback,
   useContext,
+  useEffect,
   useMemo,
   useReducer,
+  useRef,
 } from "react";
+import { useUserContext } from "./UserContext";
 function reducer(state, action) {
   if (action.type === "loading") {
     return { ...state, isLoading: true };
@@ -12,19 +15,22 @@ function reducer(state, action) {
     return {
       ...state,
       isLoading: false,
-      currentProduct: action.payload,
+      currentProduct: action.payLoad,
       error: "",
     };
   } else if (action.type === "ratingChanged") {
     return {
       ...state,
-      ratedProducts: [...state.ratedProducts, action.payload],
+      ratedProducts:
+        action.payLoad.length !== undefined
+          ? action.payLoad
+          : [...state.ratedProducts, action.payLoad],
     };
   } else if (action.type === "rejected") {
     return {
       ...state,
       isLoading: false,
-      error: action.payload,
+      error: action.payLoad,
       currentProduct: {},
     };
   } else if (action.type === "unmounted") {
@@ -46,6 +52,27 @@ const ProductContext = createContext();
 function ProductProvider({ children }) {
   const [{ currentProduct, isLoading, error, ratedProducts }, dispatch] =
     useReducer(reducer, initialState);
+  const { userRatedProducts, updateRatedProducts, userId } = useUserContext();
+  const isInitialLoad = useRef(true);
+  useEffect(
+    function () {
+      if (userId) {
+        dispatch({ type: "ratingChanged", payLoad: userRatedProducts });
+        isInitialLoad.current = false;
+      } else {
+        isInitialLoad.current = true;
+        dispatch({ type: "ratingChanged", payLoad: [] });
+      }
+    },
+    [userRatedProducts, userId],
+  );
+  useEffect(
+    function () {
+      if (isInitialLoad.current) return;
+      updateRatedProducts(ratedProducts);
+    },
+    [ratedProducts, updateRatedProducts],
+  );
   async function fetchProductDetails(id) {
     try {
       dispatch({ type: "loading" });
@@ -64,11 +91,11 @@ function ProductProvider({ children }) {
       }
       clearTimeout(timeoutId);
       const data = await res.json();
-      dispatch({ type: "productLoaded", payload: data });
+      dispatch({ type: "productLoaded", payLoad: data });
     } catch {
       dispatch({
         type: "rejected",
-        payload:
+        payLoad:
           "There was an error with fetching the details of this product.",
       });
     }
@@ -84,7 +111,7 @@ function ProductProvider({ children }) {
       exists !== -1 && ratedProducts.splice(exists, 1);
       dispatch({
         type: "ratingChanged",
-        payload: { id: productId, rating: rating },
+        payLoad: { id: productId, rating: rating },
       });
     }
     return {

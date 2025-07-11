@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FaStar, FaStarHalfAlt, FaRegStar } from "react-icons/fa";
 import { useProductContext } from "../contexts/ProductContext";
 
@@ -14,6 +14,14 @@ export default function StarRating({ productId, rating, interactive }) {
   );
   const { rate, count } = rating;
   const max = hover ?? userRate?.rating ?? rate;
+  useEffect(() => {
+    setUserRate(
+      ratedProducts.find((item) => item.id === productId) ?? {
+        id: productId,
+        rating: null,
+      },
+    );
+  }, [ratedProducts, productId]);
   return (
     <div className="flex items-center justify-start gap-2">
       <div className="flex">

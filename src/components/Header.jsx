@@ -1,12 +1,16 @@
 import { Link, NavLink } from "react-router-dom";
 import SearchBar from "./SearchBar";
-import { FaShoppingCart } from "react-icons/fa";
+import { FaShoppingCart, FaUser } from "react-icons/fa";
 import { useCartContext } from "../contexts/CartContext";
 import CartModal from "./CartModal";
 import { useState } from "react";
+import { useUserContext } from "../contexts/UserContext";
+import AccountDropdown from "./AccountDropdown";
 export default function Header() {
   const { cart } = useCartContext();
   const [showCartModal, setShowCartModal] = useState(false);
+  const [showAccountDropdown, setShowAccountDropdown] = useState(false);
+  const { userId } = useUserContext();
   return (
     <header className="border-b-Button text-Text1 relative z-10 flex w-full justify-between border-b-[0.1px] py-8">
       <h1 className="text-2xl font-bold">
@@ -23,7 +27,9 @@ export default function Header() {
           <NavLink to="/about">About</NavLink>
         </li>
         <li>
-          <NavLink to="/signup">Sign Up</NavLink>
+          <NavLink to={userId ? "/account" : "/signup"}>
+            {userId ? "Account" : "Sign Up"}
+          </NavLink>
         </li>
       </ul>
       <div className="flex items-center gap-4">
@@ -48,6 +54,27 @@ export default function Header() {
             </span>
           </div>
         </Link>
+        {userId ? (
+          <NavLink
+            to="/account"
+            onClick={(e) => {
+              e.preventDefault();
+              setShowAccountDropdown((cur) => !cur);
+            }}
+            className={({ isActive }) =>
+              isActive
+                ? "bg-Button1 relative rounded-full p-1"
+                : "bg-Secondary relative rounded-full p-1"
+            }
+          >
+            <div>
+              <FaUser className="text-Primary text-xl" />
+            </div>
+            {showAccountDropdown && <AccountDropdown />}
+          </NavLink>
+        ) : (
+          ""
+        )}
       </div>
       {showCartModal && (
         <div

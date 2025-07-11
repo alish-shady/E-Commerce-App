@@ -1,9 +1,35 @@
-import { createContext, useContext, useState } from "react";
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
+import { useUserContext } from "./UserContext";
 const cartContext = createContext();
 function CartProvider({ children }) {
   const [cart, setCart] = useState([]);
   const [shippingCost, _] = useState(
     () => Math.floor(Math.random() * (50 - 20 + 1)) + 20,
+  );
+  const { updateCart, userCart, userId } = useUserContext();
+  const isInitialLoad = useRef(true);
+  useEffect(
+    function () {
+      if (userId) {
+        setCart(userCart);
+        isInitialLoad.current = false;
+      } else isInitialLoad.current = true;
+    },
+    [userCart, userId],
+  );
+  useEffect(
+    function () {
+      if (isInitialLoad.current) return;
+      updateCart(cart);
+    },
+    [cart, updateCart],
   );
   function addToCart(product) {
     setCart([
@@ -20,6 +46,9 @@ function CartProvider({ children }) {
   function removeFromCart(id) {
     setCart(cart.filter((product) => product.id !== id));
   }
+  const emptyCart = useCallback(function emptyCart() {
+    setCart([]);
+  }, []);
   function changeQuantity(type, id) {
     const selectedProduct = cart.findIndex((product) => product.id === id);
     const cartArr = [...cart];
@@ -36,7 +65,6 @@ function CartProvider({ children }) {
     });
     return exists;
   }
-
   return (
     <cartContext.Provider
       value={{
@@ -44,6 +72,7 @@ function CartProvider({ children }) {
         shippingCost,
         addToCart,
         removeFromCart,
+        emptyCart,
         changeQuantity,
         productExists,
       }}

@@ -1,36 +1,92 @@
-export default function Form() {
+import { useEffect, useState } from "react";
+import { useUserContext } from "../contexts/UserContext";
+import WarnUser from "./WarnUser";
+import { Link, useNavigate } from "react-router-dom";
+import LoadingDots from "./LoadingDots";
+export default function Form({ type }) {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+  const { signUpUser, loginUser, userId, isLoading, error } = useUserContext();
+  useEffect(() => {
+    if (userId) {
+      navigate("/");
+    }
+  }, [userId, navigate]);
+  function handleSubmit(e) {
+    e.preventDefault();
+    if ((type === "signup" && !name) || !email || !password) {
+      return null;
+    }
+    if (type === "signup") signUpUser(name, email, password);
+    else loginUser(email, password);
+  }
   return (
-    <form className="ml-auto flex shrink-0 flex-col gap-8 p-16">
-      <div className="flex flex-col gap-2">
-        <h1 className="text-2xl font-semibold">Create your account</h1>
-        <p className="text-sm">Enter your credentials below</p>
-      </div>
-      <div className="flex flex-col gap-4">
-        <input
-          type="text"
-          placeholder="Name"
-          className="border-Text2 border-b p-2 text-sm focus:outline-0"
-        />
-        <input
-          type="text"
-          placeholder="Email or Phone Number"
-          className="border-Text2 border-b p-2 text-sm focus:outline-0"
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          className="border-Text2 border-b p-2 text-sm focus:outline-0"
-        />
-      </div>
-      <div className="flex w-full">
-        <button className="hover:text-Button2 bg-Button2 text-Text hover:bg-Text grow cursor-pointer rounded-sm border py-2 text-sm duration-200">
-          Create Account
-        </button>
-      </div>
-      <div className="flex gap-2 text-sm">
-        <p className="text-Text2">Already have an account?</p>
-        <span className="border-b-Text2 border-b">Log in</span>
-      </div>
-    </form>
+    <>
+      <form className="relative ml-auto flex w-1/3 shrink-0 flex-col gap-8 p-16">
+        {isLoading || userId ? (
+          <div className="bg-Primary/30 absolute top-0 left-0 flex h-full w-full items-center justify-center backdrop-blur-xs">
+            <LoadingDots />
+          </div>
+        ) : (
+          ""
+        )}
+        <div className="flex flex-col gap-2">
+          <h1 className="text-2xl font-semibold">
+            {type === "signup" ? "Create your account" : "Login to E-Commerce"}
+          </h1>
+          <p className="text-sm">Enter your credentials below</p>
+        </div>
+        <div className="flex flex-col gap-4">
+          {type === "signup" && (
+            <input
+              type="text"
+              placeholder="Name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              className="border-Text2 border-b p-2 text-sm focus:outline-0"
+            />
+          )}
+          <input
+            type="text"
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className="border-Text2 border-b p-2 text-sm focus:outline-0"
+          />
+          <input
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            className="border-Text2 border-b p-2 text-sm focus:outline-0"
+          />
+        </div>
+        {error && <WarnUser message={error} />}
+        <div className="flex w-full">
+          <button
+            onClick={handleSubmit}
+            className="hover:text-Button2 bg-Button2 text-Text hover:bg-Text grow cursor-pointer rounded-sm border py-2 text-sm duration-200"
+          >
+            {type === "signup" ? "Create Account" : "Login"}
+          </button>
+        </div>
+        <div className="flex gap-2 text-sm">
+          {type === "signup" && (
+            <>
+              <p className="text-Text2">Already have an account?</p>
+              <Link to="/login">
+                <span
+                  className={`border-b-Text2 border-b ${type === "login" && "text-Secondary2 ml-auto"}`}
+                >
+                  Log in
+                </span>
+              </Link>
+            </>
+          )}
+        </div>
+      </form>
+    </>
   );
 }
