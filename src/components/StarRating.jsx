@@ -23,7 +23,7 @@ export default function StarRating({ productId, rating, interactive }) {
     );
   }, [ratedProducts, productId]);
   return (
-    <div className="flex items-center justify-start gap-2">
+    <div className="flex items-center justify-start gap-2 md:text-2xl lg:text-xl xl:text-lg 2xl:text-base">
       <div className="flex">
         {Array.from({ length: 5 }, (_, i) => {
           const index = i + 1;
@@ -41,17 +41,17 @@ export default function StarRating({ productId, rating, interactive }) {
               }}
             >
               {max >= index ? (
-                <FaStar className="text-base text-yellow-400" />
+                <FaStar className="text-yellow-400" />
               ) : max >= index - 0.5 ? (
-                <FaStarHalfAlt className="text-base text-yellow-400" />
+                <FaStarHalfAlt className="text-yellow-400" />
               ) : (
-                <FaRegStar className="text-base text-yellow-400" />
+                <FaRegStar className="text-yellow-400" />
               )}
             </span>
           );
         })}
       </div>
-      <span className="text-Text2 text-sm">
+      <span className="text-Text2 text-xs md:hidden lg:flex">
         ({userRate.rating ? "Your Rating" : count})
       </span>
     </div>

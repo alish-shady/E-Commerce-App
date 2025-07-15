@@ -9,5 +9,5 @@ export default function ProtectedRoute({ children }) {
     if (!userId) navigate("/", { replace: true });
   }, [userId, navigate]);
 
-  return children;
+  return userId ? children : null;
 }

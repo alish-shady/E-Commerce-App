@@ -43,6 +43,7 @@ function ProductsProvider({ children }) {
           ),
         ]);
         const data = await res.json();
+
         dispatch({ type: "productsLoaded", payload: data });
       } catch {
         dispatch({

@@ -32,7 +32,7 @@ export default function ProductInfo() {
   }
   if (isLoading) {
     return (
-      <div className="flex h-full w-full items-center justify-center">
+      <div className="flex h-[25vh] w-full items-center justify-center">
         <LoadingDots />
       </div>
     );
@@ -40,16 +40,16 @@ export default function ProductInfo() {
   return (
     <section>
       {currentProduct.id && (
-        <div className="flex w-full justify-between gap-16">
-          <div className="aspect-square max-w-[45%]">
+        <div className="flex w-full justify-between">
+          <div className="aspect-square w-[45%]">
             <img
-              className="max-h-full w-full rounded-sm"
+              className="h-full w-full rounded-sm"
               src={currentProduct.image}
             />
           </div>
-          <div className="flex max-w-2/5 flex-col gap-2">
+          <div className="text-size-c flex max-w-2/5 flex-col gap-2">
             <div className="border-b-Button flex flex-col gap-2 border-b py-2">
-              <h2 className="text-2xl font-semibold">{currentProduct.title}</h2>
+              <h2 className="font-semibold">{currentProduct.title}</h2>
               <div className="flex items-center gap-2">
                 <StarRating
                   productId={currentProduct.id}
@@ -57,26 +57,23 @@ export default function ProductInfo() {
                   interactive={true}
                 />
               </div>
-              <span className="text-xl font-medium">
+              <span className="text-size-c font-medium">
                 ${currentProduct.price}
               </span>
-              <p className="text-xs">{currentProduct.description}</p>
-              <span className="bg-Secondary w-fit rounded-sm p-1 text-sm">
+              <p className="text-size-a">{currentProduct.description}</p>
+              <span className="bg-Secondary text-size-b w-fit rounded-sm p-1">
                 {currentProduct.category}
               </span>
             </div>
-            <div className="flex justify-between">
+            <div className="flex w-full">
               <button
                 onClick={() =>
                   userId ? addToCart(currentProduct) : navigate("/signup")
                 }
-                className={`text-Text basis-3/4 cursor-pointer rounded-md p-2 transition-all duration-200 ${exists ? "bg-Button1" : "bg-Button2 hover:bg-HoverButton2"}`}
+                className={`text-Text basis-full cursor-pointer rounded-md p-2 transition-all duration-200 ${exists ? "bg-Button1" : "bg-Button2 hover:bg-HoverButton2"}`}
                 disabled={exists}
               >
                 {exists ? "Added to Cart!" : "Add to Cart"}
-              </button>
-              <button className="border-Text2 aspect-square rounded-md border px-2">
-                <IoIosHeartEmpty className="text-lg" />
               </button>
             </div>
           </div>

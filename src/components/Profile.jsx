@@ -65,7 +65,7 @@ export default function Profile() {
       const passwordUpdateSuccess = await changePassword(password);
       if (!passwordUpdateSuccess) allOperationsSucceeded = false;
     } else if (filledCount > 0 && filledCount < fields.length) {
-      setTypingError("there is something wrong with password input values");
+      setTypingError("All 3 password inputs should be filled.");
       allOperationsSucceeded = false;
     }
     if (allOperationsSucceeded) {
@@ -73,11 +73,11 @@ export default function Profile() {
     }
   }
   return (
-    <div className="flex flex-col gap-8">
-      <h1 className="text-lg">
-        Hello <span className="text-Secondary2">{userFirstName}</span>!
+    <div className="flex flex-col gap-8 2xl:w-1/3">
+      <h1 className="text-size-a">
+        Welcome <span className="text-Secondary2">{userFirstName}</span>!
       </h1>
-      <div className="border-Secondary shadow-Secondary relative grid h-full w-full grid-cols-2 gap-x-8 gap-y-4 rounded-2xl border p-4 text-sm shadow-md">
+      <div className="border-Secondary shadow-Secondary text-size-e relative grid h-full w-full grid-cols-2 gap-x-8 gap-y-4 rounded-2xl border p-4 shadow-md">
         <TextInput type="First Name" value={firstName} setter={setFirstName} />
         <TextInput type="Last Name" value={lastName} setter={setLastName} />
         <TextInput type="Email" value={email} setter={setEmail} />
@@ -93,7 +93,7 @@ export default function Profile() {
           </button>
           <button
             onClick={handleSave}
-            className="hover:text-Button2 bg-Button2 text-Text hover:bg-Text relative cursor-pointer rounded-sm border p-2 text-sm duration-200"
+            className="hover:text-Button2 bg-Button2 text-Text hover:bg-Text text-size-e relative cursor-pointer rounded-sm border p-2 duration-200"
           >
             {isLoading ? (
               <div className="bg-Primary border-Button2 absolute top-0 right-0 flex h-full w-full items-center justify-center border backdrop-blur-xs">

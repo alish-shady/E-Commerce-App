@@ -24,9 +24,9 @@ export default function SortandFilter() {
   const filteredCategory = searchParams.get("filter");
   const sortBy = searchParams.get("sortBy");
   return (
-    <aside className="flex flex-col gap-4">
+    <aside className="text-size-b flex shrink-0 flex-col gap-4">
       <div className="border-b-Button flex flex-col gap-2 border-b pb-2">
-        <h2 className="text-2xl text-nowrap">Filtering by Category</h2>
+        <h2 className="text-size-c text-nowrap">Filtering by Category</h2>
         <div className="ml-2 flex flex-col gap-2">
           {isLoading ? (
             <div className="w-full">
@@ -68,7 +68,7 @@ export default function SortandFilter() {
         </div>
       </div>
       <div className="flex flex-col gap-2">
-        <h2 className="text-2xl text-nowrap">Sorting Options</h2>
+        <h2 className="text-size-c text-nowrap">Sorting Options</h2>
         {isLoading ? (
           <div className="w-full">
             <LoadingDots />

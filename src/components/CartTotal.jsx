@@ -6,8 +6,8 @@ export default function CartTotal() {
   const subTotal = cart.reduce((acc, product) => acc + product.subTotal, 0);
   const navigate = useNavigate();
   return (
-    <div className="ml-auto flex w-1/4 flex-col gap-2 rounded-md border px-4 py-6 text-sm">
-      <h2 className="text-base font-medium">Cart Total</h2>
+    <div className="text-size-e flex flex-col gap-2 rounded-md border px-4 py-6 md:mx-auto md:w-max lg:mr-0 lg:ml-auto lg:w-1/4">
+      <h2 className="text-size-d font-medium">Cart Total</h2>
       <div>
         <div className="flex justify-between py-2">
           <span>Subtotal:</span>
@@ -26,7 +26,7 @@ export default function CartTotal() {
         onClick={() => {
           navigate("/checkout");
         }}
-        className="border-Text2 hover:text-Text hover:bg-Text2 m-auto w-3/4 cursor-pointer rounded-md border-2 p-2 text-sm transition-all duration-200"
+        className="border-Text2 hover:text-Text hover:bg-Text2 m-auto w-max cursor-pointer rounded-md border-2 p-2 transition-all duration-200"
       >
         Proceed to checkout
       </button>

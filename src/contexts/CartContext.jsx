@@ -26,10 +26,10 @@ function CartProvider({ children }) {
   );
   useEffect(
     function () {
-      if (isInitialLoad.current) return;
+      if (isInitialLoad.current || !userId) return;
       updateCart(cart);
     },
-    [cart, updateCart],
+    [cart, updateCart, userId],
   );
   function addToCart(product) {
     setCart([

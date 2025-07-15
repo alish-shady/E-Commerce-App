@@ -33,7 +33,7 @@ function reducer(state, action) {
       error: action.payLoad,
       currentProduct: {},
     };
-  } else if (action.type === "unmounted") {
+  } else if (action.type === "status/clear") {
     return {
       isLoading: false,
       currentProduct: {},
@@ -102,7 +102,7 @@ function ProductProvider({ children }) {
   }
 
   const unmount = useCallback(function unmount() {
-    dispatch({ type: "unmounted" });
+    dispatch({ type: "status/clear" });
   }, []);
 
   const contextValue = useMemo(() => {

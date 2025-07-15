@@ -24,7 +24,7 @@ export default function Form({ type }) {
   }
   return (
     <>
-      <form className="relative ml-auto flex w-1/3 shrink-0 flex-col gap-8 p-16">
+      <form className="text-size-e relative flex shrink-0 flex-col gap-8 rounded-2xl p-16 md:shadow-lg lg:ml-auto lg:w-max lg:shadow-none xl:w-1/3">
         {isLoading || userId ? (
           <div className="bg-Primary/30 absolute top-0 left-0 flex h-full w-full items-center justify-center backdrop-blur-xs">
             <LoadingDots />
@@ -33,10 +33,10 @@ export default function Form({ type }) {
           ""
         )}
         <div className="flex flex-col gap-2">
-          <h1 className="text-2xl font-semibold">
+          <h1 className="font-semibold md:text-3xl lg:text-2xl">
             {type === "signup" ? "Create your account" : "Login to E-Commerce"}
           </h1>
-          <p className="text-sm">Enter your credentials below</p>
+          <p>Enter your credentials below</p>
         </div>
         <div className="flex flex-col gap-4">
           {type === "signup" && (
@@ -45,7 +45,7 @@ export default function Form({ type }) {
               placeholder="Name"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              className="border-Text2 border-b p-2 text-sm focus:outline-0"
+              className="border-Text2 border-b p-2 focus:outline-0"
             />
           )}
           <input
@@ -53,26 +53,26 @@ export default function Form({ type }) {
             placeholder="Email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="border-Text2 border-b p-2 text-sm focus:outline-0"
+            className="border-Text2 border-b p-2 focus:outline-0"
           />
           <input
             type="password"
             placeholder="Password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="border-Text2 border-b p-2 text-sm focus:outline-0"
+            className="border-Text2 border-b p-2 focus:outline-0"
           />
         </div>
         {error && <WarnUser message={error} />}
         <div className="flex w-full">
           <button
             onClick={handleSubmit}
-            className="hover:text-Button2 bg-Button2 text-Text hover:bg-Text grow cursor-pointer rounded-sm border py-2 text-sm duration-200"
+            className="hover:text-Button2 bg-Button2 text-Text hover:bg-Text grow cursor-pointer rounded-sm border py-2 duration-200"
           >
             {type === "signup" ? "Create Account" : "Login"}
           </button>
         </div>
-        <div className="flex gap-2 text-sm">
+        <div className="flex gap-2">
           {type === "signup" && (
             <>
               <p className="text-Text2">Already have an account?</p>

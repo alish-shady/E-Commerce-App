@@ -4,7 +4,7 @@ import { useSearchParams } from "react-router-dom";
 export default function SearchBar() {
   const [searchParams, setSearchParams] = useSearchParams();
   return (
-    <div className="relative flex w-full items-center">
+    <div className="text-size-a relative flex w-full items-center">
       <FaMagnifyingGlass className="absolute right-4" />
       <input
         type="text"

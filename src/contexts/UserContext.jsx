@@ -105,7 +105,18 @@ function UserProvider({ children }) {
         });
       }
     } catch (error) {
-      const errorMessage = error.message;
+      let errorMessage;
+      switch (error.message) {
+        case "Firebase: Error (auth/invalid-email).":
+          errorMessage = "The email provided is not valid.";
+          break;
+        case "Firebase: Error (auth/email-already-in-use).":
+          errorMessage =
+            "The email provided is already associated with an account.";
+          break;
+        default:
+          errorMessage = error.message;
+      }
       dispatch({ type: "errorHappened", payLoad: errorMessage });
     }
   }
@@ -134,7 +145,17 @@ function UserProvider({ children }) {
         });
       }
     } catch (error) {
-      const errorMessage = error.message;
+      let errorMessage;
+      switch (error.message) {
+        case "Firebase: Error (auth/invalid-email).":
+          errorMessage = "The email provided is not valid.";
+          break;
+        case "Firebase: Error (auth/invalid-credential).":
+          errorMessage = "The email or password is wrong.";
+          break;
+        default:
+          errorMessage = error.message;
+      }
       dispatch({ type: "errorHappened", payLoad: errorMessage });
     }
   }
@@ -166,7 +187,7 @@ function UserProvider({ children }) {
           await verifyBeforeUpdateEmail(auth.currentUser, userEmail);
           dispatch({
             type: "errorHappened",
-            payLoad: `A verification code was sent to ${userEmail}`,
+            payLoad: `A verification link was sent to ${userEmail}`,
           });
           await new Promise((resolve) => setTimeout(resolve, 2000));
         }
@@ -201,9 +222,20 @@ function UserProvider({ children }) {
       if (password.new === password.confirmNew) {
         await updatePassword(auth.currentUser, password.new);
         return true;
-      }
+      } else
+        throw new Error(
+          "The new password doesn't match the password confirmation.",
+        );
     } catch (error) {
-      dispatch({ type: "errorHappened", payLoad: error.message });
+      let errorMessage;
+      switch (error.message) {
+        case "Firebase: Error (auth/invalid-credential).":
+          errorMessage = "Password is incorrect.";
+          break;
+        default:
+          errorMessage = error.message;
+      }
+      dispatch({ type: "errorHappened", payLoad: errorMessage });
       return false;
     }
   }
@@ -240,21 +272,18 @@ function UserProvider({ children }) {
     },
     [userId],
   );
-  const logoutUser = useCallback(
-    function logoutUser() {
-      try {
-        if (auth.currentUser) {
-          dispatch({ type: "userUnloaded" });
-        } else {
-          throw new Error("No user is signed in to verify password.");
-        }
-      } catch (error) {
-        const errorMessage = error.message;
-        dispatch({ type: "errorHappened", payLoad: errorMessage });
+  const logoutUser = useCallback(function logoutUser() {
+    try {
+      if (auth.currentUser) {
+        dispatch({ type: "userUnloaded" });
+      } else {
+        throw new Error("No user is signed in to verify password.");
       }
-    },
-    [userId],
-  );
+    } catch (error) {
+      const errorMessage = error.message;
+      dispatch({ type: "errorHappened", payLoad: errorMessage });
+    }
+  }, []);
   const clearUserStatus = useCallback(() => {
     dispatch({ type: "status/clear" });
   }, [dispatch]);

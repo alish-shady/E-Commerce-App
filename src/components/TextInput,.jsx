@@ -8,14 +8,14 @@ export default function TextInput({ type, value = "", setter }) {
           placeholder="Current Password"
           value={value.current}
           onChange={(e) => setter({ type: "current", payload: e.target.value })}
-          className="bg-Secondary rounded-sm p-2 text-sm focus:outline-0"
+          className="bg-Secondary text-size-e rounded-sm p-2 focus:outline-0"
         />
         <input
           type="password"
           placeholder="New Password"
           value={value.new}
           onChange={(e) => setter({ type: "new", payload: e.target.value })}
-          className="bg-Secondary rounded-sm p-2 text-sm focus:outline-0"
+          className="bg-Secondary text-size-e rounded-sm p-2 focus:outline-0"
         />
         <input
           type="password"
@@ -24,20 +24,27 @@ export default function TextInput({ type, value = "", setter }) {
           onChange={(e) =>
             setter({ type: "confirmNew", payload: e.target.value })
           }
-          className="bg-Secondary rounded-sm p-2 text-sm focus:outline-0"
+          className="bg-Secondary text-size-e rounded-sm p-2 focus:outline-0"
         />
       </div>
     );
   }
+  const controlledProps =
+    value !== undefined && setter !== undefined
+      ? {
+          value,
+          onChange: (e) => setter(e.target.value),
+        }
+      : {};
   return (
     <div className="flex flex-col gap-2">
       <label>{type}</label>
       <input
         type="text"
-        placeholder="Name"
-        value={value}
-        onChange={(e) => setter(e.target.value)}
-        className="bg-Secondary w-60 rounded-sm p-2 text-sm focus:outline-0"
+        placeholder={type}
+        name={type.split(" ").join("")}
+        className="bg-Secondary text-size-e w-60 rounded-sm p-2 focus:outline-0"
+        {...controlledProps}
       />
     </div>
   );

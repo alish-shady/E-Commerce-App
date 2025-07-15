@@ -4,7 +4,7 @@ import { useCartContext } from "../contexts/CartContext";
 export default function CartModal({ product }) {
   const { removeFromCart } = useCartContext();
   return (
-    <div className="border-b-Text2 flex flex-col gap-2 border-b pb-2">
+    <div className="border-b-Text2 flex-col gap-2 border-b pb-2 md:hidden lg:flex">
       <div className="flex justify-between gap-4">
         <div className="flex flex-col justify-between">
           <FaTrashAlt

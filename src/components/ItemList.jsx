@@ -53,7 +53,7 @@ export default function ItemList({ listName }) {
   return (
     <section>
       <div className="relative flex w-full items-center justify-between">
-        <h2 className="flex items-center gap-2 text-2xl">
+        <h2 className="text-size-c flex items-center gap-2">
           <MdCategory />
           {listName}
         </h2>
@@ -75,7 +75,7 @@ export default function ItemList({ listName }) {
         )}
       </div>
       {isLoading ? (
-        <div className="flex h-full w-full items-center justify-center">
+        <div className="flex h-[25vh] w-full items-center justify-center">
           <LoadingDots />
         </div>
       ) : (

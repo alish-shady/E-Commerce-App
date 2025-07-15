@@ -25,6 +25,36 @@
     }
   }
 }
+@font-face {
+  font-family: Lato;
+  src: url("./assets/fonts/Lato/Lato-Regular.ttf") format("truetype");
+}
+body {
+  font-family: "Lato";
+}
 .active {
   border-bottom: 2px solid var(--color-Text2);
+}
+.text-size-a {
+  @apply md:text-xs lg:text-sm xl:text-base 2xl:text-lg;
+}
+
+.text-size-b {
+  @apply md:text-sm lg:text-base xl:text-lg 2xl:text-xl;
+}
+
+.text-size-c {
+  @apply md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl;
+}
+
+.text-size-d {
+  @apply md:text-2xl lg:text-xl xl:text-lg 2xl:text-base;
+}
+
+.text-size-e {
+  @apply md:text-xl lg:text-lg xl:text-base 2xl:text-sm;
+}
+
+.text-size-f {
+  @apply md:text-3xl lg:text-4xl xl:text-6xl 2xl:text-6xl;
 }

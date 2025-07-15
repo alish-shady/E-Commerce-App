@@ -52,7 +52,7 @@ export default function ProductList({ children }) {
         <div className="flex w-full flex-col gap-8">
           {filteredProducts.length ? (
             <>
-              <div className="grid w-full grid-cols-[repeat(auto-fit,288px)] place-content-end gap-x-10 gap-y-4">
+              <div className="grid w-full place-content-end gap-x-10 gap-y-4 md:grid-cols-[repeat(auto-fill,480px)] lg:grid-cols-[repeat(auto-fill,365px)] xl:grid-cols-[repeat(auto-fill,280px)] 2xl:grid-cols-[repeat(auto-fill,240px)]">
                 {productsOnCurrentPage.map(function (product) {
                   return <ProductCard product={product} key={product.id} />;
                 })}
