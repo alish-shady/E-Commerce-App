@@ -8,7 +8,7 @@ export default function Cart() {
   const { cart } = useCartContext();
   return (
     <PageComponent>
-      <h1 className="text-size-c font-semibold">Your Cart</h1>
+      <h1 className="text-size-c font-montserrat-semibold">Your Cart</h1>
       {!cart.length ? (
         <TableEmpty type="cart" />
       ) : (

@@ -8,13 +8,13 @@ import { FaGears } from "react-icons/fa6";
 export default function TechnologyStack() {
   return (
     <div className="my-8 flex flex-col gap-4">
-      <h1 className="font-semibold md:text-2xl xl:text-4xl">
+      <h1 className="font-montserrat-semibold md:text-2xl xl:text-4xl">
         Technologies Used
       </h1>
       <div className="text-size-e grid gap-8 md:grid-cols-2 xl:grid-cols-4">
         <div className="border-Text2 hover:bg-Button2 hover:text-Primary flex justify-between rounded-md border p-2 duration-100">
           <div className="flex flex-col">
-            <h2 className="text-size-d font-semibold">Front-End</h2>
+            <h2 className="text-size-d font-montserrat-semibold">Front-End</h2>
             <div className="flex flex-col indent-4">
               <span>React</span>
               <span>React-router</span>
@@ -29,7 +29,9 @@ export default function TechnologyStack() {
         </div>
         <div className="border-Text2 hover:bg-Button2 hover:text-Primary flex justify-between rounded-md border p-2 duration-100">
           <div className="flex flex-col">
-            <h2 className="text-size-d font-semibold">State Management</h2>
+            <h2 className="text-size-d font-montserrat-semibold">
+              State Management
+            </h2>
             <div className="flex flex-col indent-4">
               <span>React Context API (global)</span>
             </div>
@@ -38,7 +40,9 @@ export default function TechnologyStack() {
         </div>
         <div className="border-Text2 hover:bg-Button2 hover:text-Primary flex justify-between rounded-md border p-2 duration-100">
           <div className="flex flex-col">
-            <h2 className="text-size-d font-semibold">Back-End / Database</h2>
+            <h2 className="text-size-d font-montserrat-semibold">
+              Back-End / Database
+            </h2>
             <div className="flex w-full flex-col indent-4">
               <span>Firebase authentication</span>
               <span>Firestore database</span>
@@ -48,7 +52,9 @@ export default function TechnologyStack() {
         </div>
         <div className="border-Text2 hover:bg-Button2 hover:text-Primary flex justify-between rounded-md border p-2 duration-100">
           <div className="flex flex-col">
-            <h2 className="text-size-d font-semibold">External APIs</h2>
+            <h2 className="text-size-d font-montserrat-semibold">
+              External APIs
+            </h2>
             <div className="flex w-full flex-col indent-4">
               <span>FakeStoreAPI</span>
               <span>EmailJS</span>

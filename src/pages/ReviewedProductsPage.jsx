@@ -15,7 +15,7 @@ export default function ReviewedProducts() {
   });
   return (
     <PageComponent>
-      <h1 className="text-size-c font-semibold">Rated Products</h1>
+      <h1 className="text-size-c font-montserrat-semibold">Rated Products</h1>
       {!ratedProducts.length ? (
         <TableEmpty type="reviews" />
       ) : (

@@ -19,7 +19,9 @@ export default function ProductCard({ product }) {
             alt="product image"
           />
         </div>
-        <h2 className="text-size-e truncate font-semibold">{title}</h2>
+        <h2 className="text-size-e font-montserrat-semibold truncate">
+          {title}
+        </h2>
         <p className="text-Text2">
           Price: <span className="text-Secondary2 font-medium">${price}</span>
         </p>

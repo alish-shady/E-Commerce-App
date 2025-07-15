@@ -5,7 +5,9 @@ export default function NotFound() {
     <PageComponent>
       <div className="m-auto flex h-full w-full flex-col items-center justify-center gap-8 py-16">
         <div className="flex flex-col items-center justify-center gap-4">
-          <h1 className="text-size-f font-bold">404 Not Found</h1>
+          <h1 className="text-size-f font-montserrat-semibold">
+            404 Not Found
+          </h1>
           <p className="text-size-d">
             The page you were looking for does not exist!
           </p>

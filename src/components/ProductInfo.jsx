@@ -49,7 +49,9 @@ export default function ProductInfo() {
           </div>
           <div className="text-size-c flex max-w-2/5 flex-col gap-2">
             <div className="border-b-Button flex flex-col gap-2 border-b py-2">
-              <h2 className="font-semibold">{currentProduct.title}</h2>
+              <h2 className="font-montserrat-semibold">
+                {currentProduct.title}
+              </h2>
               <div className="flex items-center gap-2">
                 <StarRating
                   productId={currentProduct.id}

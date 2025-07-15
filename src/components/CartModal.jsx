@@ -11,7 +11,7 @@ export default function CartModal({ product }) {
             onClick={() => removeFromCart(product.id)}
             className="text-HoverButton2 hover:text-Button2 cursor-pointer self-start text-2xl duration-75"
           />
-          <h2 className="text-lg font-semibold">{product.title}</h2>
+          <h2 className="font-montserrat-semibold text-lg">{product.title}</h2>
         </div>
         <img
           src={product.image}
@@ -22,7 +22,7 @@ export default function CartModal({ product }) {
       <span className="bg-Secondary flex w-fit items-center justify-center rounded-sm px-1 text-sm">
         {product.category}
       </span>
-      <span className="text-sm font-semibold">${product.price}</span>
+      <span className="font-montserrat-semibold text-sm">${product.price}</span>
     </div>
   );
 }

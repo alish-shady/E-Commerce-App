@@ -6,7 +6,7 @@ export default function OrderConfirmed() {
       <div className="flex w-full flex-col items-center justify-center gap-8">
         <div className="flex items-center justify-center gap-x-8">
           <FaStar className="text-size-f text-yellow-400" />
-          <h1 className="text-size-f flex justify-center gap-2 font-bold">
+          <h1 className="text-size-f font-montserrat-semibold flex justify-center gap-2">
             Thank you for your purchase!
           </h1>
           <FaStar className="text-size-f text-yellow-400" />

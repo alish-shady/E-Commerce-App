@@ -13,6 +13,7 @@
   --color-Text: #fafafa;
   --color-Text1: #000000;
   --color-Text2: #7d8184;
+  --font-montserrat-semibold: "Montserrat-Semibold";
   @keyframes bounce {
     0%,
     100% {
@@ -26,11 +27,17 @@
   }
 }
 @font-face {
-  font-family: Lato;
-  src: url("./assets/fonts/Lato/Lato-Regular.ttf") format("truetype");
+  font-family: Montserrat;
+  src: url("./assets/fonts/Montserrat/static/Montserrat-Regular.ttf")
+    format("truetype");
+}
+@font-face {
+  font-family: Montserrat-Semibold;
+  src: url("./assets/fonts/Montserrat/static/Montserrat-SemiBold.ttf")
+    format("truetype");
 }
 body {
-  font-family: "Lato";
+  font-family: "Montserrat";
 }
 .active {
   border-bottom: 2px solid var(--color-Text2);

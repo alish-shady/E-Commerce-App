@@ -11,21 +11,29 @@ export default function Footer() {
         <div className="md:max-w-36 lg:max-w-44 xl:max-w-60 2xl:max-w-72">
           <ul className="flex flex-col gap-2">
             <li>
-              <h2 className="text-size-b font-semibold">E-Commerce</h2>
+              <h2 className="text-size-b font-montserrat-semibold">
+                E-Commerce
+              </h2>
             </li>
             <li>
               <p className="text-size-a">Designed & Built by Ali Shapoori</p>
             </li>
             <li>
               <div>
-                <h3 className="text-size-b font-semibold">Get in Touch</h3>
+                <h3 className="text-size-b font-montserrat-semibold">
+                  Get in Touch
+                </h3>
                 <div className="text-size-c flex items-center gap-4">
-                  <span className="cursor-pointer">
-                    <MdEmail />
-                  </span>
-                  <span className="cursor-pointer">
-                    <FaGithub />
-                  </span>
+                  <a href="mailto:alishapoori83@gmail.com">
+                    <span className="cursor-pointer">
+                      <MdEmail />
+                    </span>
+                  </a>
+                  <a target="_blank" href="https://github.com/alish-shady">
+                    <span className="cursor-pointer">
+                      <FaGithub />
+                    </span>
+                  </a>
                 </div>
               </div>
             </li>
@@ -34,7 +42,9 @@ export default function Footer() {
         <div className="md:max-w-36 lg:max-w-44 xl:max-w-60 2xl:max-w-72">
           <ul className="flex flex-col gap-2">
             <li>
-              <h2 className="text-size-b font-semibold">About the Project</h2>
+              <h2 className="text-size-b font-montserrat-semibold">
+                About the Project
+              </h2>
             </li>
             <li className="text-size-a">
               <p>Product data provided by the FakeStoreAPI</p>
@@ -44,7 +54,7 @@ export default function Footer() {
             </li>
             <li>
               <div>
-                <h3 className="text-size-b font-semibold">
+                <h3 className="text-size-b font-montserrat-semibold">
                   This Project is a Portfolio Piece!
                 </h3>
                 <h4 className="text-size-a">
@@ -58,7 +68,9 @@ export default function Footer() {
         <div className="md:max-w-36 lg:max-w-44 xl:max-w-60 2xl:max-w-72">
           <ul className="flex flex-col gap-2">
             <li>
-              <h2 className="text-size-b font-semibold">Page Links</h2>
+              <h2 className="text-size-b font-montserrat-semibold">
+                Page Links
+              </h2>
             </li>
             <li>
               <ul className="text-size-a flex flex-col gap-1">

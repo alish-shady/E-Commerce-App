@@ -13,7 +13,7 @@ export default function Header() {
   const { userId } = useUserContext();
   return (
     <header className="border-b-Button text-Text1 relative z-10 flex w-full justify-between border-b-[0.1px] py-8">
-      <h1 className="text-size-c font-bold">
+      <h1 className="text-size-c font-montserrat-semibold">
         <Link to="/"> E-Commerce</Link>
       </h1>
       <ul className="text-size-b flex items-center gap-8">

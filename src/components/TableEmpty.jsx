@@ -6,7 +6,7 @@ export default function TableEmpty({ type = "cart" }) {
   return (
     <div className="flex w-full flex-col items-center justify-center gap-16 py-16">
       <div className="flex w-full flex-col items-center justify-center gap-8">
-        <h1 className="text-size-f font-bold">
+        <h1 className="text-size-f font-montserrat-semibold">
           {type === "cart" &&
             (userId ? "Cart is Empty!" : "You are not logged in!")}
           {type === "reviews" && "No Reviewed Product!"}

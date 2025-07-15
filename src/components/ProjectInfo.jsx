@@ -3,11 +3,13 @@ export default function ProjectInfo() {
   return (
     <div className="flex w-full justify-between">
       <div className="text-size-e flex flex-col gap-4">
-        <h1 className="font-semibold md:text-2xl xl:text-4xl">
+        <h1 className="font-montserrat-semibold md:text-2xl xl:text-4xl">
           The Project's Story
         </h1>
         <div>
-          <h2 className="text-size-d font-semibold">Project Purpose</h2>
+          <h2 className="text-size-d font-montserrat-semibold">
+            Project Purpose
+          </h2>
           <p>
             React E-Commerce Project is a feature-rich, front-to-back web
             application designed to demonstrate modern web development
@@ -15,7 +17,7 @@ export default function ProjectInfo() {
           </p>
         </div>
         <div>
-          <h2 className="text-size-d font-semibold">Key Features</h2>
+          <h2 className="text-size-d font-montserrat-semibold">Key Features</h2>
           <p>
             Key features include user authentication, a persistent shopping cart
             backed by a cloud database, dynamic product listing, filtering and
@@ -24,7 +26,7 @@ export default function ProjectInfo() {
           </p>
         </div>
         <div>
-          <h2 className="text-size-d font-semibold">Project Goal</h2>
+          <h2 className="text-size-d font-montserrat-semibold">Project Goal</h2>
           <p>
             The goal of this project was to build and showcase a complete,
             real-world application from scratch, focusing on and highlighting

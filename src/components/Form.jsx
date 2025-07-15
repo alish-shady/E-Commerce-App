@@ -33,7 +33,7 @@ export default function Form({ type }) {
           ""
         )}
         <div className="flex flex-col gap-2">
-          <h1 className="font-semibold md:text-3xl lg:text-2xl">
+          <h1 className="font-montserrat-semibold md:text-3xl lg:text-2xl">
             {type === "signup" ? "Create your account" : "Login to E-Commerce"}
           </h1>
           <p>Enter your credentials below</p>
