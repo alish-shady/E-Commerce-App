@@ -43,7 +43,7 @@ export default function TextInput({ type, value = "", setter }) {
         type="text"
         placeholder={type}
         name={type.split(" ").join("")}
-        className="bg-Secondary text-size-e w-60 rounded-sm p-2 focus:outline-0"
+        className="bg-Secondary text-size-e max-w-60 rounded-sm p-2 focus:outline-0"
         {...controlledProps}
       />
     </div>

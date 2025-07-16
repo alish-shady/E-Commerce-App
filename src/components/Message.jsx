@@ -43,7 +43,7 @@ export default function Message() {
     <form
       onSubmit={sendEmail}
       ref={form}
-      className="border-Secondary shadow-Secondary grid gap-4 rounded-2xl p-4 shadow-md md:grid-cols-2 xl:grid-cols-3"
+      className="border-Secondary shadow-Secondary grid gap-4 rounded-2xl p-4 text-xs shadow-md md:grid-cols-2 xl:grid-cols-3"
     >
       <TextInput type="Your Name" />
       {userId ? (

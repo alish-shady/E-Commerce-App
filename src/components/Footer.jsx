@@ -81,10 +81,10 @@ export default function Footer() {
                   <Link to="/contact">Contact</Link>
                 </li>
                 <li>
-                  <Link to="signup">Sign Up</Link>
+                  <Link to="/signup">Sign Up</Link>
                 </li>
                 <li>
-                  <Link to="cart">Cart</Link>
+                  <Link to="/cart">Cart</Link>
                 </li>
               </ul>
             </li>
