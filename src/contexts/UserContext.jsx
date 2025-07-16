@@ -84,6 +84,7 @@ function UserProvider({ children }) {
         email,
         password,
       );
+      console.log(userCredential);
       if (userCredential) {
         const { user } = userCredential;
         const standardName = standardizeName(name);
@@ -113,6 +114,10 @@ function UserProvider({ children }) {
         case "Firebase: Error (auth/email-already-in-use).":
           errorMessage =
             "The email provided is already associated with an account.";
+          break;
+        case "Firebase: Error (auth/network-request-failed).":
+          errorMessage =
+            "In order to access account services you have to be connected to a VPN unfortunately";
           break;
         default:
           errorMessage = error.message;
@@ -152,6 +157,10 @@ function UserProvider({ children }) {
           break;
         case "Firebase: Error (auth/invalid-credential).":
           errorMessage = "The email or password is wrong.";
+          break;
+        case "Firebase: Error (auth/network-request-failed).":
+          errorMessage =
+            "In order to access account services you have to be connected to a VPN unfortunately";
           break;
         default:
           errorMessage = error.message;
