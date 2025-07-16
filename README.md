@@ -2,6 +2,8 @@
 
 A feature-rich, full-stack e-commerce web application built from the ground up with modern web technologies. This project demonstrates a comprehensive understanding of front-end development with React, state management with the Context API, and backend integration using Firebase for user authentication and data persistence.
 
+**Live Demo:** [text](https://e-commerce-app-six-beige.vercel.app/)
+
 ## ![Project Screenshot](./public/screenshot-of-homepage.png)
 
 ## Key Features
