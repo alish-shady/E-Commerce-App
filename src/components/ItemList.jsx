@@ -31,12 +31,11 @@ export default function ItemList({ listName }) {
 
   function scrollList(e, dir) {
     e.preventDefault();
-    console.log(getComputedStyle(listContainer.current).padding);
+
     const scrollAmount = getComputedStyle(
       listContainer.current.children[0],
     ).width;
     if (dir === "left") {
-      console.log(Number(scrollAmount.slice(0, -2)));
       listContainer.current.scrollBy({
         left: -Number(scrollAmount.slice(0, -2)),
         behavior: "smooth",

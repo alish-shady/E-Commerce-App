@@ -79,15 +79,14 @@ function UserProvider({ children }) {
     try {
       const valid = isPasswordValid(password);
       if (valid !== "valid") throw new Error(valid);
+      const standardName = standardizeName(name);
       const userCredential = await createUserWithEmailAndPassword(
         auth,
         email,
         password,
       );
-      console.log(userCredential);
       if (userCredential) {
         const { user } = userCredential;
-        const standardName = standardizeName(name);
         await setDoc(doc(db, "users", user.uid), {
           firstName: standardName[0],
           lastName: standardName[1],
